@@ -57,7 +57,7 @@ The tool should be installed onto:
 Install plugin locally:
 
 ```bash
-npm install swi-styleguide --save-dev
+npm install swi-styleguide-generator --save-dev
 ```
 
 The Gulp plugin contains two functions that requires different set of file streams:
@@ -70,7 +70,7 @@ The following code shows complete example how to use styleguide with gulp-sass a
 
 ```js
 var gulp = require("gulp");
-var styleguide = require("swi-styleguide");
+var styleguide = require("swi-styleguide-generator");
 var sass = require("gulp-sass");
 var outputPath = "output";
 
