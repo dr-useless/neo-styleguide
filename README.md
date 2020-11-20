@@ -1,4 +1,4 @@
-# SWI style guide generator
+# SWI styleguide generator
 
 [![Build Status](https://travis-ci.org/dr-useless/sc5-styleguide.svg?branch=master)](https://travis-ci.org/dr-useless/sc5-styleguide)
 
