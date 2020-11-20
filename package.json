@@ -1,18 +1,18 @@
 {
-  "name": "sc5-styleguide",
-  "version": "2.2.0",
-  "description": "Styleguide generator is a handy little tool that helps you generate good looking styleguides from stylesheets using KSS notation.",
+  "name": "swi-styleguide",
+  "version": "2.3.0",
+  "description": "Forked from https://github.com/SC5/sc5-styleguide. Styleguide generator is a handy little tool that helps you generate good looking styleguides from stylesheets using KSS notation.",
   "bin": {
     "styleguide": "./bin/styleguide"
   },
   "license": "MIT",
-  "author": "SC5",
+  "author": "dr-useless",
   "keywords": [
     "styleguide"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/SC5/sc5-styleguide.git"
+    "url": "https://github.com/dr-useless/swi-styleguide.git"
   },
   "main": "./lib/styleguide.js",
   "files": [

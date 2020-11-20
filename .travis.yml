@@ -1,12 +1,10 @@
 language: node_js
 node_js:
-- '4.2'
-- '6.9'
+  - "14.15.1"
 script:
-- npm run build && npm test
+  - npm run build && npm test
 sudo: false
-after_success:
-  cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+after_success: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 notifications:
   email: false
   slack:

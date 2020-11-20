@@ -1,6 +1,6 @@
 # SC5 style guide generator
 
-[![Build Status](https://travis-ci.org/dr-useless/sc5-styleguide.svg?branch=master)](https://travis-ci.org/dr-useless/sc5-styleguide) [![dependencies](https://david-dm.org/SC5/sc5-styleguide.svg)](https://david-dm.org/SC5/sc5-styleguide) [![npm version](https://badge.fury.io/js/sc5-styleguide.svg)](http://badge.fury.io/js/sc5-styleguide)
+[![Build Status](https://travis-ci.org/dr-useless/sc5-styleguide.svg?branch=master)](https://travis-ci.org/dr-useless/sc5-styleguide)
 
 Style guide generator is a handy little tool that helps you generate good looking style guides from style sheets
 using KSS notation. It can be used as a command line utility, gulp task or Grunt task (needs grunt-gulp) with minimal effort.
@@ -9,7 +9,6 @@ using KSS notation. It can be used as a command line utility, gulp task or Grunt
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 
 - [Usage](#usage)
   - [Prerequisites](#prerequisites)
@@ -43,21 +42,20 @@ using KSS notation. It can be used as a command line utility, gulp task or Grunt
 You should familiarize yourself with both [KSS](https://github.com/kneath/kss)
 and [node-kss](https://github.com/kss-node/kss-node) to get yourself started.
 
-SC5 Style guide provides additions to KSS syntax which you can learn [below](#user-content-documenting-syntax).
+SWI Styleguide provides additions to KSS syntax which you can learn [below](#user-content-documenting-syntax).
 
 ### Prerequisites
 
 The tool should be installed onto:
 
-- Node 4.2.x
-- Node 6.9.x
+- Node 14.x
 
 ### With Gulp
 
 Install plugin locally:
 
 ```bash
-npm install sc5-styleguide --save-dev
+npm install swi-styleguide --save-dev
 ```
 
 The Gulp plugin contains two functions that requires different set of file streams:
@@ -69,38 +67,44 @@ The Gulp plugin contains two functions that requires different set of file strea
 The following code shows complete example how to use styleguide with gulp-sass and with gulp watch.
 
 ```js
-var gulp = require('gulp');
-var styleguide = require('sc5-styleguide');
-var sass = require('gulp-sass');
-var outputPath = 'output';
+var gulp = require("gulp");
+var styleguide = require("swi-styleguide");
+var sass = require("gulp-sass");
+var outputPath = "output";
 
-gulp.task('styleguide:generate', function() {
-  return gulp.src('*.scss')
-    .pipe(styleguide.generate({
-        title: 'My Styleguide',
+gulp.task("styleguide:generate", function () {
+  return gulp
+    .src("*.scss")
+    .pipe(
+      styleguide.generate({
+        title: "My Styleguide",
         server: true,
         rootPath: outputPath,
-        overviewPath: 'README.md'
-      }))
+        overviewPath: "README.md",
+      })
+    )
     .pipe(gulp.dest(outputPath));
 });
 
-gulp.task('styleguide:applystyles', function() {
-  return gulp.src('main.scss')
-    .pipe(sass({
-      errLogToConsole: true
-    }))
+gulp.task("styleguide:applystyles", function () {
+  return gulp
+    .src("main.scss")
+    .pipe(
+      sass({
+        errLogToConsole: true,
+      })
+    )
     .pipe(styleguide.applyStyles())
     .pipe(gulp.dest(outputPath));
 });
 
-gulp.task('watch', ['styleguide'], function() {
+gulp.task("watch", ["styleguide"], function () {
   // Start watching changes and update styleguide whenever changes are detected
   // Styleguide automatically detects existing server instance
-  gulp.watch(['*.scss'], ['styleguide']);
+  gulp.watch(["*.scss"], ["styleguide"]);
 });
 
-gulp.task('styleguide', ['styleguide:generate', 'styleguide:applystyles']);
+gulp.task("styleguide", ["styleguide:generate", "styleguide:applystyles"]);
 ```
 
 This approach gives flexibility to use any preprocessor. For example, you can freely replace gulp-sass with gulp-ruby-sass. However, please notice that variable parsing works only for Sass, SCSS and Less files.
@@ -120,41 +124,53 @@ npm install sc5-styleguide gulp grunt-gulp --save-dev
 Then you are able to use the same gulp task inside you `Gruntfile`:
 
 ```js
-var gulp = require('gulp'),
-  styleguide = require('sc5-styleguide');
+var gulp = require("gulp"),
+  styleguide = require("sc5-styleguide");
 
 grunt.initConfig({
-  pkg: grunt.file.readJSON('package.json'),
+  pkg: grunt.file.readJSON("package.json"),
   gulp: {
-    'styleguide-generate': function() {
-      var outputPath = 'output';
-      return gulp.src([''])
-        .pipe(styleguide.generate({
-            title: 'My Styleguide',
+    "styleguide-generate": function () {
+      var outputPath = "output";
+      return gulp
+        .src([""])
+        .pipe(
+          styleguide.generate({
+            title: "My Styleguide",
             server: true,
             rootPath: outputPath,
-            overviewPath: 'README.md'
-          }))
+            overviewPath: "README.md",
+          })
+        )
         .pipe(gulp.dest(outputPath));
     },
-    'styleguide-applystyles': function() {
-      return gulp.src('main.scss')
+    "styleguide-applystyles": function () {
+      return gulp
+        .src("main.scss")
         .pipe(styleguide.applyStyles())
-        .pipe(gulp.dest('output'));
-    }
+        .pipe(gulp.dest("output"));
+    },
   },
 
   watch: {
     scss: {
-      files: '**/*.scss',
-      tasks: ['scss', 'gulp:styleguide-generate', 'gulp:styleguide-applystyles']
-    }
-  }
+      files: "**/*.scss",
+      tasks: [
+        "scss",
+        "gulp:styleguide-generate",
+        "gulp:styleguide-applystyles",
+      ],
+    },
+  },
 });
 
-grunt.loadNpmTasks('grunt-gulp');
+grunt.loadNpmTasks("grunt-gulp");
 
-grunt.registerTask('default', ['gulp:styleguide-generate', 'gulp:styleguide-applystyles', 'watch']);
+grunt.registerTask("default", [
+  "gulp:styleguide-generate",
+  "gulp:styleguide-applystyles",
+  "watch",
+]);
 ```
 
 When using Grunt, we recommend processing styles in Grunt tasks as you do for your main application and pass
@@ -359,7 +375,7 @@ For example, to parse all .css files using postcss parser, following configurati
 
 ```js
 {
-  css: 'postcss'
+  css: "postcss";
 }
 ```
 
@@ -369,7 +385,8 @@ For example, to parse all .css files using postcss parser, following configurati
 default:
 
 ```js
-styleguideProcessors: {}
+styleguideProcessors: {
+}
 ```
 
 Styleguide has several processors that enrich or modify the data. For example the `sg-wrapper` replacement is done by a processor.
@@ -408,15 +425,15 @@ Configuration array containing paths to the dependencies of the hosted applicati
 ```js
 filesConfig: [
   {
-    "name": "NameOfMainAppModule",
-    "files": [
+    name: "NameOfMainAppModule",
+    files: [
       "path/to/dependency-file.js",
       "path/to/application-file.js",
       "path/to/stylesheet.css",
     ],
-    "template": "path/to/template-filename.html"
-  }
-]
+    template: "path/to/template-filename.html",
+  },
+];
 ```
 
 Note: When using templateUrl in directives, the template path is relative to style guide index.html, not the hosted application root.
@@ -664,11 +681,12 @@ Images, fonts and other static assets should be copied to style guide output fol
 If you modify your assets in gulp streams, you can add styleguide output directory as a second destination for your assets:
 
 ```js
-gulp.task('images', function() {
-  gulp.src(['images/**'])
+gulp.task("images", function () {
+  gulp
+    .src(["images/**"])
     // Do image sprites, optimizations etc.
-    .pipe(gulp.dest(buildPath + '/images'))
-    .pipe(gulp.dest(outputPath + '/images'));
+    .pipe(gulp.dest(buildPath + "/images"))
+    .pipe(gulp.dest(outputPath + "/images"));
 });
 ```
 
@@ -734,8 +752,8 @@ Include other needed scripts, such as libraries, into the same array:
 ```js
 extraHead: [
   '<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>',
-  '<script src="/path/to/my-js-file.js"></script>'
-]
+  '<script src="/path/to/my-js-file.js"></script>',
+];
 ```
 
 This way you can enrich the documented components with JavaScript. Keep in mind that you need to use `disableEncapsulation` parameter to make the components visible for the parent page JavaScript (otherwise they are encapsulated with shadow DOM).
@@ -747,7 +765,7 @@ The components get visible onto the StyleGuide pages dynamically. This means tha
 In your JavaScript you may need to operate components after they have been rendered. Catch `styleguide:onRendered` event on `window` for that:
 
 ```js
-$(window).bind("styleguide:onRendered", function(e) {
+$(window).bind("styleguide:onRendered", function (e) {
   // do anything here
   // use e.originalEvent.detail.elements to get elements
 });
@@ -758,8 +776,8 @@ This is useful when you need to initialize your components. As this kind of init
 ```js
 extraHead: [
   '<script src="/path/to/my-js-file.js"></script>',
-  '<script src="/js/init-styleguide.js"></script>'
-]
+  '<script src="/js/init-styleguide.js"></script>',
+];
 ```
 
 ### Adding new section in between
@@ -767,10 +785,11 @@ extraHead: [
 You may use `addSection` helper in order to make it easier adding a new section (or subsection) in between of the existing. It shifts reference numbers of the following sections. To create a helping task, write this:
 
 ```js
-gulp.task("styleguide:addsection", function() {
-  return gulp.src('path/to/components/**/*.less')
+gulp.task("styleguide:addsection", function () {
+  return gulp
+    .src("path/to/components/**/*.less")
     .pipe(styleguide.addSection())
-    .pipe(gulp.dest('path/to/components/'))
+    .pipe(gulp.dest("path/to/components/"));
 });
 ```
 
