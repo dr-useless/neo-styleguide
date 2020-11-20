@@ -1,5 +1,5 @@
 {
-  "title": "SC5 Styleguide",
+  "title": "SWI Styleguide",
   "overviewPath": "../../README.md",
   "styleVariables": "sass/*.scss",
   "sass": {
