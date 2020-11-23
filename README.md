@@ -1,11 +1,10 @@
-# SWI styleguide generator
+# Neo Styleguide
 
-[![Build Status](https://travis-ci.org/dr-useless/swi-styleguide-generator.svg?branch=master)](https://travis-ci.org/dr-useless/swi-styleguide-generator)
+[![Build Status](https://travis-ci.org/dr-useless/neo-styleguide.svg?branch=master)](https://travis-ci.org/dr-useless/neo-styleguide)
 
 Forked from [sc5-styleguide](https://github.com/SC5/sc5-styleguide)
 
-Styleguide generator is a handy little tool that helps you generate good looking style guides from style sheets
-using KSS notation. It can be used as a command line utility, gulp task or Grunt task (needs grunt-gulp) with minimal effort.
+A living styleguide generator.
 
 ## Table of contents
 
@@ -44,7 +43,7 @@ using KSS notation. It can be used as a command line utility, gulp task or Grunt
 You should familiarize yourself with both [KSS](https://github.com/kneath/kss)
 and [node-kss](https://github.com/kss-node/kss-node) to get yourself started.
 
-SWI Styleguide provides additions to KSS syntax which you can learn [below](#user-content-documenting-syntax).
+Neo Styleguide provides additions to KSS syntax which you can learn [below](#user-content-documenting-syntax).
 
 ### Prerequisites
 
@@ -187,7 +186,7 @@ This way of usage is not recommended, as it does not help as much with introduct
 Install plugin globally:
 
 ```bash
-npm install -g sc5-styleguide
+npm install -g neo-styleguide
 ```
 
 Styleguide command line tool requires two sets of source files:
@@ -830,18 +829,3 @@ Note: If you installed style guide by cloning repository directly instead of npm
 The demo generates style guide to `demo-output` directory.
 
 Point your browser to <http://localhost:3000>
-
-## Additional Info
-
-### Articles, blog posts
-
-- [article] [Visual regression tests for SC5 StyleGuide](https://sc5.io/posts/visual-regression-testing/)
-- [article] [Automating Style Guide-Driven Development @ Smashing Magazine](https://www.smashingmagazine.com/2015/03/automating-style-guide-driven-development/)
-- [blog post] [Styleguide the Smaller Things](http://varya.me/en/posts/sc5-styleguide-for-smallers/)
-- [article] [Advanced techniques for the SC5 styleguide generator](https://www.alleyinteractive.com/blog/advanced-techniques-for-the-sc5-styleguide-generator/)
-- [blog post] [Living SC5 Styleguide, the next level](http://varya.me/en/posts/sc5-style-guide-next-level/)
-- [conference talk] [Driving Style Guide-Driven Development](https://youtu.be/gWzYMJjtx-Y)
-
-### Supplementary packages
-
-- [sc5-styleguide-visualtest](https://github.com/SC5/sc5-styleguide-visualtest)

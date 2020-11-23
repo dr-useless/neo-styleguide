@@ -1,10 +1,5 @@
-'use strict';
-
 var vfs = require('vinyl-fs'),
   path = require('path'),
-  plumber = require('gulp-plumber'),
-  jscs = require('gulp-jscs'),
-  jshint = require('gulp-jshint'),
   mocha = require('gulp-mocha'),
   karma = require('karma').server,
   coverage = require('istanbul'),
@@ -21,10 +16,6 @@ module.exports = function registerTasks(gulp) {
 };
 
 tasks = {
-  //jscs:disable disallowQuotedKeysInObjects
-  'jscs': runJscs,
-  'jshint': runJsHint,
-  'lint:js': ['jscs', 'jshint'],
   'test:unit': runUnitTests,
   'test:integration': runIntegrationTests,
   'test:integration:structure': runStructureIntegrationTests,
@@ -35,35 +26,7 @@ tasks = {
   'test': runAllTests,
   'clean-coverage': cleanCoverageDir,
   'generate-coverage-report': generateCoverageReport
-  //jscs:enable disallowQuotedKeysInObjects
 };
-
-function srcJsLint() {
-  return vfs.src([
-    'gulpfile.babel.js',
-    'gulpfile-tests.babel.js',
-    'gulp-tasks/*',
-    'bin/**/*.js',
-    'lib/**/*.js',
-    'test/**/*.js',
-    '!lib/dist/**/*.js',
-    '!lib/app/js/components/**/*.js'
-  ]);
-}
-
-function runJscs() {
-  return srcJsLint()
-    .pipe(plumber())
-    .pipe(jscs({configPath: '.jscsrc'}));
-}
-
-function runJsHint() {
-  return srcJsLint()
-    .pipe(plumber())
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(jshint.reporter('fail'));
-}
 
 function runMocha() {
   return mocha({reporter: 'spec'});
