@@ -1,9 +1,0 @@
-// Test custom color
-
-$primary_color: #00FF00;
-
-@define-mixin styleguide_custom_styles {
-  .test-override-class {
-    background: red;
-  }
-}

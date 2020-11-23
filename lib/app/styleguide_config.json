@@ -1,5 +1,5 @@
 {
-  "title": "SWI Styleguide",
+  "title": "Neo Styleguide",
   "overviewPath": "../../README.md",
   "styleVariables": "sass/*.scss",
   "sass": {

@@ -8,7 +8,7 @@ var gulp = require("gulp"),
 gulp.task("styleguide:generate", function () {
   return gulp.src(source)
     .pipe(styleguide.generate({
-      title: "SWI Styleguide",
+      title: "Neo Styleguide",
       server: true,
       rootPath: outputPath,
       overviewPath: "README.md",

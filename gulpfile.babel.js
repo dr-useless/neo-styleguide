@@ -1,10 +1,5 @@
 var gulp = require('gulp'),
-    gutil = require('gulp-util'),
     concat = require('gulp-concat'),
-    clean = require('gulp-clean'),
-    cssmin = require('gulp-cssmin'),
-    ghPages = require('gulp-gh-pages'),
-    gulpIgnore = require('gulp-ignore'),
     plumber = require('gulp-plumber'),
     bower = require('gulp-bower'),
     mainBowerFiles = require('main-bower-files'),
@@ -14,15 +9,12 @@ var gulp = require('gulp'),
     toc = require('gulp-doctoc'),
     styleguide = require('./lib/styleguide'),
     postcss = require('gulp-postcss'),
-    rename = require('gulp-rename'),
     rimraf = require('gulp-rimraf'),
     distPath = 'lib/dist',
     fs = require('fs'),
     chalk = require('chalk'),
-    outputPath = 'demo-output',
-    webserver = require('gulp-webserver');
+    outputPath = 'demo-output';
 
-require('./gulpfile-tests.babel')(gulp);
 gulp.task('js:app', () => {
   return gulp.src([
     'lib/app/js/app.js',
@@ -163,79 +155,4 @@ gulp.task('build:dist', ['copy:css', 'js:app', 'js:vendor', 'html', 'assets']);
 
 gulp.task('build', ['clean:dist'], () => {
   runSequence('build:dist');
-});
-
-gulp.task('changelog', () => {
-
-  require('conventional-changelog')({
-    repository: 'https://github.com/SC5/sc5-styleguide',
-    version: require('./package.json').version,
-    file: ''
-  }, (err, log) => {
-    fs.writeFile('./CHANGELOG_LATEST.md', log, (err) => {
-      if (err) {
-        console.log(err);
-
-      } else {
-        console.log('The latest changelog was updated\n\n');
-        console.log(log);
-      }
-    });
-  });
-
-});
-
-gulp.task('friday', function() {
-  var today = new Date();
-  // For fridays only
-  if (today.getDay() !== 5) {
-      return;
-  }
-  gutil.log(gutil.colors.magenta('┓┏┓┏┓┃'));
-  gutil.log(gutil.colors.magenta('┛┗┛┗┛┃'), gutil.colors.cyan('⟍ ○⟋'));
-  gutil.log(gutil.colors.magenta('┓┏┓┏┓┃'), gutil.colors.cyan('  ∕       '), 'Friday');
-  gutil.log(gutil.colors.magenta('┛┗┛┗┛┃'), gutil.colors.cyan('ノ)'));
-  gutil.log(gutil.colors.magenta('┓┏┓┏┓┃'), '          ', 'release,');
-  gutil.log(gutil.colors.magenta('┛┗┛┗┛┃'));
-  gutil.log(gutil.colors.magenta('┓┏┓┏┓┃'), '          ', 'good');
-  gutil.log(gutil.colors.magenta('┛┗┛┗┛┃'));
-  gutil.log(gutil.colors.magenta('┓┏┓┏┓┃'), '          ', 'luck!');
-  gutil.log(gutil.colors.magenta('┃┃┃┃┃┃'));
-  gutil.log(gutil.colors.magenta('┻┻┻┻┻┻'));
-});
-
-gulp.task('publish', ['friday', 'build', 'changelog']);
-
-var siteDir = './site/';
-
-gulp.task('website', ['website:css'], function() {
-  gulp.watch(siteDir + 'css/app.css', ['website:css']);
-
-  gulp.src(siteDir)
-    .pipe(webserver({
-      livereload: true,
-      directoryListing: false,
-      open: true
-    }));
-});
-
-gulp.task('website:css', ()=> {
-  gulp.src(siteDir + 'css/*.css')
-    .pipe(gulpIgnore.exclude('*.min.css'))
-    .pipe(cssmin())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest(siteDir + 'css'));
-});
-
-gulp.task('website:deploy', ['website:deploy:clean'], () => {
-  gulp.src(siteDir + '**/*')
-    .pipe(ghPages({
-      remoteUrl: 'git@github.com:SC5/sc5-styleguide.git'
-    }));
-
-});
-
-gulp.task('website:deploy:clean', () => {
-  gulp.src('.publish', { read: false })
-    .pipe(clean());
 });
